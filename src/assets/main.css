@@ -11,3 +11,14 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+
+/* Na úvodní stránce jen jeden scroll (uvnitř landingu), žádný scroll body */
+html.landing-page,
+body.landing-page {
+  overflow: hidden;
+  height: 100%;
+}
+
+#app.landing-page {
+  height: 100%;
+}

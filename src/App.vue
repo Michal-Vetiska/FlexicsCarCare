@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { RouterView, RouterLink, useRoute } from 'vue-router'
 import { useCart } from './composables/useCart.js'
 import { useInactivity } from './composables/useInactivity.js'
@@ -35,17 +35,37 @@ function onDocumentClick(e) {
   if (el && !el.contains(e.target)) closeCart()
 }
 
+function setLandingPageClass(on) {
+  const appEl = document.getElementById('app')
+  if (on) {
+    document.documentElement.classList.add('landing-page')
+    document.body.classList.add('landing-page')
+    appEl?.classList.add('landing-page')
+  } else {
+    document.documentElement.classList.remove('landing-page')
+    document.body.classList.remove('landing-page')
+    appEl?.classList.remove('landing-page')
+  }
+}
+
+watch(
+  () => route.path,
+  (path) => setLandingPageClass(path === '/'),
+  { immediate: true }
+)
+
 onMounted(() => {
   document.addEventListener('click', onDocumentClick)
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
+  setLandingPageClass(false)
 })
 </script>
 
 <template>
-  <div class="app">
+  <div class="app" :class="{ 'app--landing': route.path === '/' }">
     <div class="app-bg">
       <div class="app-bg__gradient app-bg__gradient--blue" />
       <div class="app-bg__gradient app-bg__gradient--purple" />
@@ -142,12 +162,12 @@ onUnmounted(() => {
     </Transition>
 
     <main class="shell">
-      <div class="shell__inner shell__inner--main">
+      <div class="shell__inner shell__inner--main" :class="{ 'shell__inner--full': route.path === '/' }">
         <RouterView />
       </div>
     </main>
 
-    <footer class="shell shell--footer">
+    <footer v-if="route.path !== '/'" class="shell shell--footer">
       <div class="shell__inner shell__inner--footer">
         <div class="footer__left">
           <div class="footer__title">Flexics Car Care</div>
@@ -197,6 +217,24 @@ onUnmounted(() => {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
   position: relative;
   overflow-x: hidden;
+}
+
+/* Úvodní stránka: jeden scroll jen uvnitř landingu, main zabírá zbytek viewportu */
+.app.app--landing {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app.app--landing main.shell {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app.app--landing .shell__inner--full {
+  height: 100%;
+  min-height: 0;
 }
 
 .app-bg {
@@ -257,6 +295,11 @@ onUnmounted(() => {
 .shell__inner--main {
   padding-top: 1.5rem;
   padding-bottom: 3rem;
+}
+
+.shell__inner--full {
+  padding: 0;
+  max-width: none;
 }
 
 .shell__inner--footer {
