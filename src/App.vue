@@ -12,7 +12,6 @@ const navItems = [
   { name: 'Úvod', path: '/' },
   { name: 'Ceník', path: '/cenik' },
   { name: 'Dárkové poukazy', path: '/darkove-poukazy' },
-  { name: 'Rezervace', path: '/rezervace' },
 ]
 
 const cartOpen = ref(false)
@@ -94,6 +93,14 @@ onUnmounted(() => {
           </RouterLink>
         </nav>
 
+        <RouterLink
+          to="/kontakt"
+          class="nav__item nav__item--contact"
+          :class="{ 'nav__item--active': route.path === '/kontakt' }"
+        >
+          Kontakt
+        </RouterLink>
+
         <div class="cart" @click.stop>
           <button
             type="button"
@@ -140,10 +147,6 @@ onUnmounted(() => {
             </div>
           </Transition>
         </div>
-
-        <RouterLink to="/rezervace" class="cta">
-          Rezervovat termín
-        </RouterLink>
       </div>
     </header>
 
@@ -169,33 +172,37 @@ onUnmounted(() => {
 
     <footer v-if="route.path !== '/'" class="shell shell--footer">
       <div class="shell__inner shell__inner--footer">
-        <div class="footer__left">
-          <div class="footer__title">Flexics Car Care</div>
-          <div class="footer__text">Detailing, který vašemu autu vrátí emoce.</div>
-          <div class="footer__location">Lokalita: Poličná u Valašského Meziříčí</div>
-        </div>
-        <div class="footer__center">
-          <div class="footer__label">Pracovní doba</div>
-          <div class="footer__hours">
-            <span>Po – Pá 8:00 – 18:00</span>
-            <span>So 9:00 – 16:00</span>
-            <span>Ne Zavřeno</span>
+        <div class="footer__main">
+          <div class="footer__left">
+            <div class="footer__title">Flexics Car Care</div>
+            <div class="footer__text">Detailing, který vašemu autu vrátí emoce.</div>
+            <div class="footer__location">Lokalita: Poličná u Valašského Meziříčí</div>
+          </div>
+          <div class="footer__center">
+            <div class="footer__label">Pracovní doba</div>
+            <div class="footer__hours">
+              <span>Po – Pá 8:00 – 18:00</span>
+              <span>So 9:00 – 16:00</span>
+              <span>Ne Zavřeno</span>
+            </div>
+          </div>
+          <div class="footer__right">
+            <div class="footer__row">
+              <span>Tel:</span>
+              <a href="tel:+420777000000">+420 777 721 795</a>
+            </div>
+            <div class="footer__row">
+              <span>E-mail:</span>
+              <a href="mailto:info@flexicscarcare.cz">flexicscarecare@gmail.com</a>
+            </div>
+            <div class="footer__row">
+              <span>📷 Instagram</span>
+              <a href="https://instagram.com/flexic_cars" target="_blank" rel="noopener noreferrer">@flexic_cars</a>
+            </div>
           </div>
         </div>
-        <div class="footer__right">
-          <div class="footer__row">
-            <span>Tel:</span>
-            <a href="tel:+420777000000">+420 777 721 795</a>
-          </div>
-          <div class="footer__row">
-            <span>E-mail:</span>
-            <a href="mailto:info@flexicscarcare.cz">flexicscarecare@gmail.com</a>
-          </div>
-          <div class="footer__row">
-            <span>📷 Instagram</span>
-            <a href="https://instagram.com/flexic_cars" target="_blank" rel="noopener noreferrer">@flexic_cars
-            </a>
-          </div>
+        <div class="footer__credit">
+          Made by <a href="https://michalvetiska.site" target="_blank" rel="noopener noreferrer">Michal Vetiška</a>
         </div>
       </div>
     </footer>
@@ -320,20 +327,55 @@ onUnmounted(() => {
 
 .shell__inner--footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: 1.5rem;
   border-top: 1px solid rgba(148, 163, 184, 0.35);
   padding-top: 1.5rem;
   padding-bottom: 2rem;
 }
 
+.footer__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer__credit {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(148, 163, 184, 0.85);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.footer__credit a {
+  color: #e5e7eb;
+  text-decoration: none;
+}
+
+.footer__credit a:hover {
+  text-decoration: underline;
+}
+
+/* Na všech stránkách kromě úvodní: navbar fixed, aby při scrollování zůstal nahoře */
 .shell--header {
   position: sticky;
   top: 0;
   z-index: 10;
   padding: 0.75rem clamp(1rem, 4vw, 2rem) 0;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+}
+
+.app:not(.app--landing) .shell--header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.app:not(.app--landing) main.shell {
+  padding-top: 5.25rem;
 }
 
 /* Apple-style frosted glass: silný blur, nízká krytí, jemný světlý okraj nahoře */
@@ -816,6 +858,11 @@ onUnmounted(() => {
   }
 
   .shell__inner--footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__main {
     flex-direction: column;
     align-items: flex-start;
   }

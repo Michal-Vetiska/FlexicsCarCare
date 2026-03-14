@@ -1,5 +1,14 @@
 /* Reset okrajů – celá stránka na obrazovku, žádné bílé pruhy */
-html,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  /* Šířka layoutu se nemění při zobrazení/skrytí scrollbaru – navbar zůstane na místě */
+  scrollbar-gutter: stable;
+  overflow-y: scroll; /* fallback: v prohlížečích bez scrollbar-gutter vždy rezervuje pruh pro scrollbar */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -12,8 +21,11 @@ body {
   min-height: 100vh;
 }
 
-/* Na úvodní stránce jen jeden scroll (uvnitř landingu), žádný scroll body */
-html.landing-page,
+/* Na úvodní stránce jen jeden scroll (uvnitř landingu), žádný scroll body.
+   overflow jen na body – html necháme beze změny, aby se layout neposouval (scrollbar gutter). */
+html.landing-page {
+  height: 100%;
+}
 body.landing-page {
   overflow: hidden;
   height: 100%;
