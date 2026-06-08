@@ -1,0 +1,252 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-tertiary-container: #dad8e0;
+  --color-surface-container-low: #151d1e;
+  --color-on-error: #690005;
+  --color-inverse-on-surface: #2a3233;
+  --color-on-tertiary-fixed-variant: #46464c;
+  --color-on-surface: #dce4e5;
+  --color-on-error-container: #ffdad6;
+  --color-secondary-fixed-dim: #c1c7cf;
+  --color-outline: #849495;
+  --color-error: #ffb4ab;
+  --color-outline-variant: #3b494b;
+  --color-primary-fixed-dim: #00dbe9;
+  --color-tertiary: #f6f4fc;
+  --color-primary: #dbfcff;
+  --color-on-primary-fixed: #002022;
+  --color-secondary: #c1c7cf;
+  --color-on-background: #dce4e5;
+  --color-tertiary-fixed: #e3e1e9;
+  --color-surface-bright: #333b3b;
+  --color-inverse-primary: #006970;
+  --color-surface-container-lowest: #080f10;
+  --color-surface-dim: #0d1515;
+  --color-primary-fixed: #7df4ff;
+  --color-primary-container: #00f0ff;
+  --color-on-tertiary-fixed: #1a1b21;
+  --color-tertiary-fixed-dim: #c7c6cd;
+  --color-secondary-container: #41474e;
+  --color-on-surface-variant: #b9cacb;
+  --color-on-secondary-container: #afb6bd;
+  --color-surface-container: #192122;
+  --color-surface: #0d1515;
+  --color-on-secondary-fixed-variant: #41474e;
+  --color-surface-container-high: #232b2c;
+  --color-on-secondary-fixed: #161c22;
+  --color-on-secondary: #2b3137;
+  --color-inverse-surface: #dce4e5;
+  --color-on-primary-container: #006970;
+  --color-surface-tint: #00dbe9;
+  --color-error-container: #93000a;
+  --color-on-tertiary: #2f3036;
+  --color-surface-container-highest: #2e3637;
+  --color-on-tertiary-container: #5e5e64;
+  --color-surface-variant: #2e3637;
+  --color-on-primary: #00363a;
+  --color-on-primary-fixed-variant: #004f54;
+  --color-background: #0d1515;
+  --color-secondary-fixed: #dde3eb;
+
+  --spacing-laser-stroke: 1px;
+  --spacing-container-max: 1440px;
+  --spacing-element-gap: 32px;
+  --spacing-section-gap: 160px;
+  --spacing-margin-page: 64px;
+
+  --font-headline-md: 'Syne', sans-serif;
+  --font-label-caps: 'Inter', sans-serif;
+  --font-headline-lg: 'Syne', sans-serif;
+  --font-body-lg: 'Inter', sans-serif;
+  --font-display-xl: 'Syne', sans-serif;
+  --font-body-md: 'Inter', sans-serif;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--font-weight: 700;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1;
+  --text-label-caps--letter-spacing: 0.1em;
+  --text-label-caps--font-weight: 700;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 1.1;
+  --text-headline-lg--letter-spacing: -0.02em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-display-xl: 80px;
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 800;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.5;
+  --text-body-md--font-weight: 400;
+
+  --animate-scan: scan 2s linear infinite;
+  --animate-scan-slow: scan 4s linear infinite;
+
+  @keyframes scan {
+    0% {
+      left: -10%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      left: 110%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(100px, 150px) scale(1.2);
+    }
+    66% {
+      transform: translate(-50px, 300px) scale(0.8);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+  }
+}
+
+@import 'tailwindcss';
+
+body {
+  background-color: #0d1515;
+  color: #dce4e5;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 219, 233, 0.1);
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.laser-glow {
+  box-shadow: 0 0 20px rgba(0, 219, 233, 0.15);
+}
+
+.kinetic-text {
+  background: linear-gradient(180deg, rgba(220, 228, 229, 0.05) 0%, rgba(220, 228, 229, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+.hero-headline {
+  font-size: clamp(5rem, 20vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #0d1515;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #00dbe9;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shimmer-trigger {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-trigger::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    transparent 100%
+  );
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.shimmer-trigger:hover::after {
+  transform: rotate(45deg) translate(100%, 100%);
+}
+
+.particle {
+  position: fixed;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(0, 219, 233, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 20s infinite linear;
+  will-change: transform;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.group:hover .rotate-x-12-hover {
+  transform: rotateX(10deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .glass-panel,
+  .shimmer-trigger::after,
+  .particle,
+  .kinetic-text,
+  .hero-img-container {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
