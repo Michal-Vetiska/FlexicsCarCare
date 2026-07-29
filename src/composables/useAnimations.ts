@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, type Ref } from 'vue'
+import { onMounted, onUnmounted, ref, type Ref } from 'vue'
 
 export function useReveal() {
   let observer: IntersectionObserver | null = null
@@ -33,6 +33,37 @@ export function useSmoothScroll() {
   }
 
   return { handleClick }
+}
+
+export function useActiveSection(sectionIds: string[], offset = 140) {
+  const activeSection = ref('')
+
+  function updateActiveSection() {
+    let current = ''
+
+    for (const id of sectionIds) {
+      const el = document.getElementById(id)
+      if (!el) continue
+      if (el.getBoundingClientRect().top <= offset) {
+        current = id
+      }
+    }
+
+    activeSection.value = current
+  }
+
+  onMounted(() => {
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', updateActiveSection)
+    window.removeEventListener('resize', updateActiveSection)
+  })
+
+  return { activeSection }
 }
 
 export function useHeroParallax(

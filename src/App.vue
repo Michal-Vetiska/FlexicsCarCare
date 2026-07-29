@@ -2,8 +2,12 @@
 import AppNav from './components/AppNav.vue'
 import HeroSection from './components/HeroSection.vue'
 import ServicesSection from './components/ServicesSection.vue'
+import PortfolioSection from './components/PortfolioSection.vue'
+import MaintenanceSection from './components/MaintenanceSection.vue'
 import VouchersSection from './components/VouchersSection.vue'
+import AboutSection from './components/AboutSection.vue'
 import AppFooter from './components/AppFooter.vue'
+import BookingModal from './components/BookingModal.vue'
 import { useReveal } from './composables/useAnimations'
 
 useReveal()
@@ -20,7 +24,11 @@ useReveal()
     <AppNav />
     <HeroSection />
     <ServicesSection />
+    <PortfolioSection />
+    <MaintenanceSection />
     <VouchersSection />
+    <AboutSection />
     <AppFooter />
+    <BookingModal />
   </div>
 </template>

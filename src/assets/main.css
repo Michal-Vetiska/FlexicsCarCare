@@ -133,6 +133,30 @@ body {
   overflow-x: hidden;
 }
 
+/* Responsive design tokens */
+@media (max-width: 1023px) {
+  :root {
+    --spacing-margin-page: 2rem;
+    --spacing-section-gap: 6rem;
+    --spacing-element-gap: 1.75rem;
+    --text-headline-lg: 2.25rem;
+    --text-body-lg: 1rem;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --spacing-margin-page: 1.25rem;
+    --spacing-section-gap: 4.5rem;
+    --spacing-element-gap: 1.5rem;
+    --text-headline-lg: 1.875rem;
+    --text-headline-md: 1.25rem;
+    --text-display-xl: 3rem;
+    --text-body-lg: 1rem;
+    --text-body-md: 0.9375rem;
+  }
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
@@ -159,7 +183,7 @@ body {
 }
 
 .hero-headline {
-  font-size: clamp(5rem, 20vw, 15rem);
+  font-size: clamp(3.5rem, 18vw, 15rem);
   line-height: 0.8;
   letter-spacing: -0.05em;
 }
