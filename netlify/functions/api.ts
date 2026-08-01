@@ -1,3 +1,4 @@
+import { connectLambda } from '@netlify/blobs'
 import type { Handler, HandlerEvent } from '@netlify/functions'
 import {
   clearSessionCookieHeader,
@@ -30,14 +31,26 @@ function parseBody(event: HandlerEvent): unknown {
   }
 }
 
+function ensureBlobs(event: HandlerEvent) {
+  const blobs = (event as HandlerEvent & { blobs?: string }).blobs
+  if (!blobs) return
+  connectLambda({
+    blobs,
+    headers: Object.fromEntries(
+      Object.entries(event.headers).filter((entry): entry is [string, string] => typeof entry[1] === 'string'),
+    ),
+  })
+}
+
 export const handler: Handler = async (event) => {
+  ensureBlobs(event)
+
   const method = (event.httpMethod || 'GET').toUpperCase()
   const path = getApiPath(event.path)
 
   try {
     if (method === 'GET' && (path === '/content' || path === '/content/')) {
-      const content = await readContent()
-      return json(200, content)
+      return json(200, await readContent())
     }
 
     if (method === 'PUT' && (path === '/admin/content' || path === '/admin/content/')) {
@@ -106,6 +119,7 @@ export const handler: Handler = async (event) => {
     return json(404, { error: 'Not found', path, method })
   } catch (err) {
     console.error('API error', err)
-    return json(500, { error: 'Interní chyba serveru' })
+    const detail = err instanceof Error ? err.message : String(err)
+    return json(500, { error: 'Interní chyba serveru', detail })
   }
 }

@@ -1,8 +1,22 @@
-import type { Handler } from '@netlify/functions'
+import { connectLambda } from '@netlify/blobs'
+import type { Handler, HandlerEvent } from '@netlify/functions'
 import { getMediaKey } from '../lib/http.js'
 import { getUpload } from '../lib/store.js'
 
+function ensureBlobs(event: HandlerEvent) {
+  const blobs = (event as HandlerEvent & { blobs?: string }).blobs
+  if (!blobs) return
+  connectLambda({
+    blobs,
+    headers: Object.fromEntries(
+      Object.entries(event.headers).filter((entry): entry is [string, string] => typeof entry[1] === 'string'),
+    ),
+  })
+}
+
 export const handler: Handler = async (event) => {
+  ensureBlobs(event)
+
   try {
     const key = getMediaKey(event.path)
     if (!key || key.includes('..')) {

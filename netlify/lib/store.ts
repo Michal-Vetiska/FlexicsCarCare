@@ -9,16 +9,21 @@ export function getCmsStore() {
 }
 
 export async function readContent(): Promise<unknown> {
-  const store = getCmsStore()
   try {
+    const store = getCmsStore()
     const raw = await store.get(CONTENT_KEY, { type: 'text' })
     if (!raw) {
-      await store.setJSON(CONTENT_KEY, seed)
+      try {
+        await store.setJSON(CONTENT_KEY, seed)
+      } catch (err) {
+        console.error('Failed to seed Blobs content', err)
+      }
       return seed
     }
     return JSON.parse(raw)
-  } catch {
-    await store.setJSON(CONTENT_KEY, seed)
+  } catch (err) {
+    // Bez Blobs kontextu aspoň zobrazíme výchozí obsah webu
+    console.error('readContent failed, falling back to seed', err)
     return seed
   }
 }

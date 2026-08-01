@@ -14,21 +14,19 @@
   port = 8888
   framework = "#custom"
 
-# API → serverless functions (splat zachová cestu za /api/)
+# Musí být PŘED SPA fallbackem, jinak /api spadne do index.html
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
-# Uploadované obrázky z Blobs
 [[redirects]]
   from = "/uploads/*"
   to = "/.netlify/functions/media/:splat"
   status = 200
   force = true
 
-# Vue SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
