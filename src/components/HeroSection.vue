@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { HERO_IMAGE_URL, STUDIO_LOCATION } from '../constants'
+import { computed, ref } from 'vue'
+import { useContent } from '../composables/useContent'
 import { useHeroParallax } from '../composables/useAnimations'
 import { useBookingModal } from '../composables/useBookingModal'
+
+const { content } = useContent()
+const hero = computed(() => content.value!.hero)
+const location = computed(() => content.value!.contact.location)
 
 const heroImgRef = ref<HTMLImageElement | null>(null)
 const kineticTextRef = ref<HTMLElement | null>(null)
@@ -13,10 +17,13 @@ useHeroParallax(heroImgRef, kineticTextRef)
 
 <template>
   <section
+    v-if="content"
     class="relative min-h-[100svh] flex items-center justify-center pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden"
   >
     <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
-      <h1 ref="kineticTextRef" class="hero-headline font-display-xl kinetic-text">FLEXICS</h1>
+      <h1 ref="kineticTextRef" class="hero-headline font-display-xl kinetic-text">
+        {{ hero.kineticText }}
+      </h1>
     </div>
 
     <div
@@ -25,12 +32,12 @@ useHeroParallax(heroImgRef, kineticTextRef)
       <div class="w-full lg:w-1/2 space-y-6 sm:space-y-8 min-w-0 relative z-20 text-center lg:text-left">
         <div class="space-y-2 reveal active">
           <span class="font-label-caps text-label-caps text-primary-container tracking-widest block">
-            PRECISION DETAILING
+            {{ hero.eyebrow }}
           </span>
           <h2
             class="font-display-xl leading-[0.95] tracking-tighter text-[clamp(2.25rem,8vw,5rem)]"
           >
-            ENGINEERED<br />FOR PERFECTION.
+            {{ hero.headlineLine1 }}<br />{{ hero.headlineLine2 }}
           </h2>
         </div>
 
@@ -38,8 +45,7 @@ useHeroParallax(heroImgRef, kineticTextRef)
           class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto lg:mx-0 reveal active"
           style="transition-delay: 100ms"
         >
-          Péče o váš vůz na nejvyšší úrovni. Překonáváme hranice standardního detailingu skrze
-          technickou preciznost a umělecký cit.
+          {{ hero.body }}
         </p>
 
         <div
@@ -51,15 +57,17 @@ useHeroParallax(heroImgRef, kineticTextRef)
             class="bg-primary-container text-on-primary-container px-6 sm:px-8 py-3.5 sm:py-4 rounded-none font-label-caps text-label-caps font-bold hover:bg-primary transition-all duration-300 laser-glow relative group shimmer-trigger w-full sm:w-auto"
             @click="openBooking"
           >
-            Rezervovat termín
+            {{ hero.cta }}
             <span
               class="absolute -bottom-2 -right-2 w-full h-full border border-primary-container group-hover:bottom-0 group-hover:right-0 transition-all duration-300 hidden sm:block"
             />
           </button>
           <div class="flex flex-col text-center sm:text-left">
-            <span class="font-label-caps text-label-caps text-on-surface-variant">LOCATION</span>
+            <span class="font-label-caps text-label-caps text-on-surface-variant">
+              {{ hero.locationEyebrow }}
+            </span>
             <span class="font-body-md text-body-md font-bold leading-snug">
-              {{ STUDIO_LOCATION.shortLabel }}
+              {{ location.shortLabel }}
             </span>
           </div>
         </div>
@@ -78,7 +86,7 @@ useHeroParallax(heroImgRef, kineticTextRef)
         >
           <img
             ref="heroImgRef"
-            :src="HERO_IMAGE_URL"
+            :src="hero.imageUrl"
             alt="Luxury Car Detail"
             class="hero-parallax-img w-full aspect-[4/3] sm:aspect-[1.79] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700 rounded-lg sm:rounded-xl will-change-transform"
           />

@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
-import { CONTACT_EMAIL, PHONE_NUMBER, PHONE_TEL } from '../constants'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { useContent } from '../composables/useContent'
 import { useBookingModal } from '../composables/useBookingModal'
 
+const { content } = useContent()
+const contact = computed(() => content.value?.contact)
+const booking = computed(() => content.value?.booking)
 const { isOpen, close } = useBookingModal()
 
 const form = reactive({
@@ -18,11 +21,12 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 function submitForm() {
+  if (!contact.value) return
   const subject = encodeURIComponent(`Flexics – rezervace od ${form.name || 'zákazník'}`)
   const body = encodeURIComponent(
     `Jméno: ${form.name}\nE-mail: ${form.email}\n\nZpráva:\n${form.message}`,
   )
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+  window.location.href = `mailto:${contact.value.email}?subject=${subject}&body=${body}`
   sent.value = true
 }
 
@@ -77,15 +81,15 @@ onUnmounted(() => {
               BOOK SESSION
             </span>
             <h2 id="booking-title" class="font-headline-lg text-[28px] md:text-headline-lg leading-tight">
-              Rezervace termínu
+              {{ booking?.title }}
             </h2>
             <p class="font-body-md text-on-surface-variant mt-3">
-              Zavolejte nám, nebo napište e-mail — ozveme se co nejdřív.
+              {{ booking?.subtitle }}
             </p>
           </div>
 
           <a
-            :href="`tel:${PHONE_TEL}`"
+            :href="`tel:${contact?.phoneTel}`"
             class="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 mb-6 sm:mb-8 border border-primary-container/30 bg-primary-container/5 hover:bg-primary-container/10 transition-colors group"
           >
             <div
@@ -94,11 +98,11 @@ onUnmounted(() => {
               <span class="material-symbols-outlined">call</span>
             </div>
             <div class="flex flex-col min-w-0">
-              <span class="font-label-caps text-label-caps text-on-surface-variant">TELEFON</span>
+              <span class="font-label-caps text-label-caps text-on-surface-variant">{{ booking?.phoneLabel }}</span>
               <span
                 class="font-headline-md text-lg sm:text-headline-md text-primary-container tracking-tight break-all"
               >
-                {{ PHONE_NUMBER }}
+                {{ contact?.phoneNumber }}
               </span>
             </div>
           </a>
@@ -107,12 +111,12 @@ onUnmounted(() => {
             <div class="flex items-center gap-3 mb-6">
               <span class="material-symbols-outlined text-primary-container text-xl">mail</span>
               <div class="flex flex-col">
-                <span class="font-label-caps text-label-caps text-on-surface-variant">E-MAIL</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant">{{ booking?.emailLabel }}</span>
                 <a
-                  :href="`mailto:${CONTACT_EMAIL}`"
+                  :href="`mailto:${contact?.email}`"
                   class="font-body-md text-on-surface hover:text-primary-container transition-colors"
                 >
-                  {{ CONTACT_EMAIL }}
+                  {{ contact?.email }}
                 </a>
               </div>
             </div>
@@ -120,7 +124,7 @@ onUnmounted(() => {
             <form class="space-y-4" @submit.prevent="submitForm">
               <div>
                 <label class="font-label-caps text-[10px] text-on-surface-variant mb-2 block" for="booking-name">
-                  Jméno
+                  {{ booking?.nameLabel }}
                 </label>
                 <input
                   id="booking-name"
@@ -148,7 +152,7 @@ onUnmounted(() => {
               </div>
               <div>
                 <label class="font-label-caps text-[10px] text-on-surface-variant mb-2 block" for="booking-message">
-                  Zpráva
+                  {{ booking?.messageLabel }}
                 </label>
                 <textarea
                   id="booking-message"
@@ -163,7 +167,7 @@ onUnmounted(() => {
                 type="submit"
                 class="w-full bg-primary-container text-on-primary-container px-8 py-4 font-label-caps text-label-caps font-bold hover:bg-primary transition-all duration-300 shimmer-trigger laser-glow"
               >
-                Odeslat e-mail
+                {{ booking?.submitLabel }}
               </button>
             </form>
           </div>

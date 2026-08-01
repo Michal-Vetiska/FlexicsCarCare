@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import {
-  ADDITIONAL_SERVICES,
-  SERVICE_CATEGORIES,
-  type ServiceDetail,
-} from '../data/services'
+import { computed, ref } from 'vue'
+import { useContent } from '../composables/useContent'
+import type { ServiceDetail } from '../types/content'
 import ServiceDetailModal from './ServiceDetailModal.vue'
 
+const { content } = useContent()
+const services = computed(() => content.value!.services)
 const selected = ref<ServiceDetail | null>(null)
 
 function openService(service: ServiceDetail) {
@@ -19,25 +18,27 @@ function closeService() {
 </script>
 
 <template>
-  <section id="services" class="py-section-gap px-margin-page bg-surface">
+  <section v-if="content" id="services" class="py-section-gap px-margin-page bg-surface">
     <div class="max-w-container-max mx-auto">
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-end mb-element-gap gap-6 md:gap-8 reveal"
       >
         <div class="max-w-xl">
           <span class="font-label-caps text-label-caps text-primary-container mb-4 block">
-            PORTFOLIO SLUŽEB
+            {{ services.eyebrow }}
           </span>
-          <h2 class="font-headline-lg text-headline-lg">DEFINOVÁNÍ<br />ESTETIKY.</h2>
+          <h2 class="font-headline-lg text-headline-lg">
+            {{ services.titleLine1 }}<br />{{ services.titleLine2 }}
+          </h2>
         </div>
         <p class="text-on-surface-variant font-body-md max-w-xs text-left md:text-right">
-          Kompletní nabídka mytí, interiéru, leštění i doplňkových služeb. Klikněte pro detail.
+          {{ services.intro }}
         </p>
       </div>
 
       <div class="space-y-14 sm:space-y-16 md:space-y-20">
         <div
-          v-for="category in SERVICE_CATEGORIES"
+          v-for="category in services.categories"
           :key="category.id"
           class="reveal"
         >
@@ -50,7 +51,14 @@ function closeService() {
             </h3>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
+          <div
+            class="grid gap-5 sm:gap-6 md:gap-8"
+            :class="
+              category.services.length === 1
+                ? 'grid-cols-1 max-w-2xl'
+                : 'grid-cols-1 md:grid-cols-2'
+            "
+          >
             <button
               v-for="service in category.services"
               :key="service.id"
@@ -97,18 +105,17 @@ function closeService() {
           </div>
         </div>
 
-        <!-- Doplňkové služby -->
-        <div class="reveal">
+        <div v-if="services.additional.length" class="reveal">
           <div class="flex items-baseline gap-4 mb-6 sm:mb-8">
             <span class="font-label-caps text-label-caps text-primary-container">04</span>
             <h3 class="font-headline-lg text-[28px] sm:text-[32px] md:text-headline-lg">
-              DOPLŇKOVÉ SLUŽBY
+              {{ services.additionalTitle }}
             </h3>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             <button
-              v-for="service in ADDITIONAL_SERVICES"
+              v-for="service in services.additional"
               :key="service.id"
               type="button"
               class="group glass-panel p-5 sm:p-6 flex items-center justify-between gap-4 text-left cursor-pointer hover:border-primary-container/40 hover:-translate-y-1 shimmer-trigger transition-all"

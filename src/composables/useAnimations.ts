@@ -3,7 +3,8 @@ import { onMounted, onUnmounted, ref, type Ref } from 'vue'
 export function useReveal() {
   let observer: IntersectionObserver | null = null
 
-  onMounted(() => {
+  function observe() {
+    observer?.disconnect()
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -16,9 +17,12 @@ export function useReveal() {
     )
 
     document.querySelectorAll('.reveal').forEach((el) => observer!.observe(el))
-  })
+  }
 
+  onMounted(() => observe())
   onUnmounted(() => observer?.disconnect())
+
+  return { observe }
 }
 
 export function useSmoothScroll() {
@@ -35,13 +39,17 @@ export function useSmoothScroll() {
   return { handleClick }
 }
 
-export function useActiveSection(sectionIds: string[], offset = 140) {
+export function useActiveSection(sectionIds: Ref<string[]> | string[], offset = 140) {
   const activeSection = ref('')
+
+  function ids() {
+    return Array.isArray(sectionIds) ? sectionIds : sectionIds.value
+  }
 
   function updateActiveSection() {
     let current = ''
 
-    for (const id of sectionIds) {
+    for (const id of ids()) {
       const el = document.getElementById(id)
       if (!el) continue
       if (el.getBoundingClientRect().top <= offset) {

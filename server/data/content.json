@@ -1,0 +1,494 @@
+{
+  "meta": {
+    "title": "Flexic's Car Care",
+    "logoUrl": "/logo-full.png"
+  },
+  "nav": {
+    "links": [
+      {
+        "href": "#services",
+        "label": "Služby"
+      },
+      {
+        "href": "#portfolio",
+        "label": "Portfolio"
+      },
+      {
+        "href": "#maintenance",
+        "label": "Údržba"
+      },
+      {
+        "href": "#vouchers",
+        "label": "Poukazy"
+      },
+      {
+        "href": "#about",
+        "label": "O nás"
+      }
+    ],
+    "bookLabel": "Rezervovat"
+  },
+  "contact": {
+    "phoneNumber": "+420 777 721 795",
+    "phoneTel": "+420777721795",
+    "email": "flexicscarecare@gmail.com",
+    "instagramUrl": "https://www.instagram.com/flexic_cars/",
+    "instagramHandle": "@flexic_cars",
+    "location": {
+      "name": "Hustopeče nad Bečvou",
+      "postal": "753 66 Hustopeče nad Bečvou",
+      "lat": 49.556138,
+      "lng": 17.884966,
+      "shortLabel": "HUSTOPEČE NAD BEČVOU"
+    }
+  },
+  "hero": {
+    "eyebrow": "PRECISION DETAILING",
+    "headlineLine1": "ENGINEERED",
+    "headlineLine2": "FOR PERFECTION.",
+    "body": "Péče o váš vůz na nejvyšší úrovni. Překonáváme hranice standardního detailingu skrze technickou preciznost a umělecký cit.",
+    "cta": "Rezervovat termín",
+    "locationEyebrow": "LOCATION",
+    "imageUrl": "/images/hero-car.jpg",
+    "kineticText": "FLEXICS"
+  },
+  "services": {
+    "eyebrow": "PORTFOLIO SLUŽEB",
+    "titleLine1": "DEFINOVÁNÍ",
+    "titleLine2": "ESTETIKY.",
+    "intro": "Kompletní nabídka mytí, interiéru, leštění i doplňkových služeb. Klikněte pro detail.",
+    "additionalTitle": "DOPLŇKOVÉ SLUŽBY",
+    "categories": [
+      {
+        "id": "washing",
+        "label": "MYTÍ",
+        "code": "01",
+        "services": [
+          {
+            "id": "hand-wash",
+            "code": "M01",
+            "title": "Detailní ruční mytí",
+            "short": "Šetrné ruční mytí s aktivní pěnou, sušením a ošetřením pneumatik.",
+            "price": "od 790 Kč",
+            "overview": "Kompletní detailní ruční mytí vozu s důrazem na šetrnost k laku. Aktivní pěna, ruční mytí a pečlivé sušení zajistí čistý výsledek bez zbytečných rizik.",
+            "includes": [
+              "Aktivní pěna",
+              "Šetrné ruční mytí",
+              "Sušení",
+              "Ošetření pneumatik"
+            ],
+            "process": [
+              "Předmytí aktivní pěnou",
+              "Ruční mytí karoserie a disků",
+              "Sušení mikrovláknem",
+              "Ošetření pneumatik"
+            ],
+            "idealFor": "Pravidelná údržba a vozy, které potřebují bezpečné a precizní umytí."
+          },
+          {
+            "id": "paint-prep",
+            "code": "M02",
+            "title": "Detailní příprava laku",
+            "short": "Dekontaminace, odstranění asfaltu a polétavé rzi před leštěním nebo ochranou.",
+            "price": "od 2 490 Kč",
+            "overview": "Důkladná příprava laku před leštěním nebo nanesením ochrany. Odstraníme asfalt, polétavou rez a další kontaminaci, aby byl povrch připravený na další kroky.",
+            "includes": [
+              "Dekontaminace",
+              "Odstranění asfaltu",
+              "Odstranění polétavé rzi",
+              "Příprava na leštění nebo nanesení ochrany"
+            ],
+            "process": [
+              "Kontrola stavu laku",
+              "Chemická a mechanická dekontaminace",
+              "Odstranění asfaltu a železitých částic",
+              "Finální příprava povrchu"
+            ],
+            "idealFor": "Vozy před leštěním, keramikou nebo jinou dlouhodobou ochranou."
+          }
+        ]
+      },
+      {
+        "id": "interior",
+        "label": "INTERIÉR",
+        "code": "02",
+        "services": [
+          {
+            "id": "interior-clean",
+            "code": "I01",
+            "title": "Detailní čištění",
+            "short": "Vysávání, plasty, okna, kufr a čištění koberců pro svěží interiér.",
+            "price": "od 2 490 Kč",
+            "overview": "Detailní čištění interiéru od prachu a běžných nečistot. Zahrnuje vysávání, ošetření plastů, oken, kufru i koberců.",
+            "includes": [
+              "Vysávání",
+              "Plasty",
+              "Okna",
+              "Kufr",
+              "Čištění koberců atd."
+            ],
+            "process": [
+              "Vysávání celého interiéru a kufru",
+              "Čištění a ošetření plastů",
+              "Čištění oken",
+              "Úprava koberců a finální kontrola"
+            ],
+            "idealFor": "Pravidelná údržba kabiny a vozy po běžném provozu."
+          },
+          {
+            "id": "interior-full",
+            "code": "I02",
+            "title": "Kompletní detailing interiéru",
+            "short": "Tepování, strop, sedačky, kůže a impregnace pro kompletní obnovu.",
+            "price": "od 3 990 Kč",
+            "overview": "Kompletní detailing interiéru včetně tepování, čištění stropu, sedaček, kůže a finální impregnace. Ideální při silném znečištění nebo sezónní obnově.",
+            "includes": [
+              "Tepování",
+              "Strop",
+              "Sedačky",
+              "Kůže",
+              "Impregnace"
+            ],
+            "process": [
+              "Demontáž a příprava interiéru",
+              "Tepování a hloubkové čištění",
+              "Ošetření stropu, sedaček a kůže",
+              "Impregnace a finální úprava"
+            ],
+            "idealFor": "Vozy po zimě, rodinné vozy a interiéry vyžadující hloubkové vyčištění."
+          }
+        ]
+      },
+      {
+        "id": "polishing",
+        "label": "LEŠTĚNÍ",
+        "code": "03",
+        "services": [
+          {
+            "id": "polish-one",
+            "code": "L01",
+            "title": "Jednokrokové leštění",
+            "short": "Odstranění přibližně 60 % defektů, více lesku a příprava pod keramiku.",
+            "price": "od 5 990 Kč",
+            "overview": "Jednokrokové leštění zaměřené na odstranění přibližně 60 % defektů. Zvýší lesk laku, odstraní hologramy a připraví povrch pod keramickou ochranu.",
+            "includes": [
+              "Odstranění hologramů",
+              "Zvýšení lesku",
+              "Příprava pod keramiku"
+            ],
+            "process": [
+              "Diagnostika stavu laku",
+              "Jednokroková strojní korekce",
+              "Kontrola lesku a odrazů",
+              "Příprava na případnou ochranu"
+            ],
+            "idealFor": "Vozy s mírnými defekty a příprava před keramickou ochranou."
+          },
+          {
+            "id": "polish-multi",
+            "code": "L02",
+            "title": "Vícekrokové leštění",
+            "short": "Maximální obnova laku — až 95 % škrábanců a hluboký lesk.",
+            "price": "od 8 990 Kč",
+            "overview": "Vícekrokové leštění pro maximální obnovu laku. Odstraní až 95 % škrábanců, obnoví hluboký lesk a dokonale připraví povrch na dlouhodobou ochranu.",
+            "includes": [
+              "Odstranění až 95 % škrábanců",
+              "Hluboký lesk",
+              "Perfektní příprava na ochranu"
+            ],
+            "process": [
+              "Mapování defektů a měření laku",
+              "Vícekroková korekce panel po panelu",
+              "Finishing pro hluboký lesk",
+              "Finální kontrola pod světlem"
+            ],
+            "idealFor": "Silněji poškozený lak, showroom look a příprava na ochranu."
+          }
+        ]
+      }
+    ],
+    "additional": [
+      {
+        "id": "headlights",
+        "code": "D01",
+        "title": "Leštění světlometů",
+        "short": "Obnova průhlednosti a vzhledu světlometů.",
+        "price": "dle stavu",
+        "overview": "Leštění světlometů obnoví jejich průhlednost, zlepší vzhled vozu i světelný výkon při noční jízdě.",
+        "includes": [
+          "Očištění a příprava světlometů",
+          "Leštění zmatnělého povrchu",
+          "Finální úprava a ochrana dle potřeby"
+        ]
+      },
+      {
+        "id": "ceramic-textile",
+        "code": "D02",
+        "title": "Keramická ochrana textilu",
+        "short": "Ochrana textilních povrchů proti špíně a vlhkosti.",
+        "price": "dle rozsahu",
+        "overview": "Keramická ochrana textilu pomáhá odpuzovat nečistoty a vlhkost a usnadňuje následnou údržbu interiérových textilií.",
+        "includes": [
+          "Příprava textilních povrchů",
+          "Aplikace keramické ochrany",
+          "Kontrola a doporučení k údržbě"
+        ]
+      },
+      {
+        "id": "ceramic-leather",
+        "code": "D03",
+        "title": "Keramická ochrana kůže",
+        "short": "Ochrana kožených povrchů a prodloužení jejich životnosti.",
+        "price": "dle rozsahu",
+        "overview": "Keramická ochrana kůže pomáhá chránit sedačky a další kožené části před opotřebením, špínou a vysycháním.",
+        "includes": [
+          "Vyčištění a příprava kůže",
+          "Aplikace ochranné vrstvy",
+          "Finální ošetření a tipy k péči"
+        ]
+      },
+      {
+        "id": "ozone",
+        "code": "D04",
+        "title": "Ozon",
+        "short": "Odstranění zápachu a hygienická úprava interiéru.",
+        "price": "dle potřeby",
+        "overview": "Ozonová úprava interiéru pomáhá odstranit zápach a zlepšit hygienu kabiny — například po kouření, zvířatech nebo dlouhodobém znečištění.",
+        "includes": [
+          "Příprava interiéru",
+          "Ozonová sanitace",
+          "Vyvětrání a kontrola výsledku"
+        ]
+      },
+      {
+        "id": "soft-top",
+        "code": "D05",
+        "title": "Impregnace látkové střechy",
+        "short": "Obnova voděodolnosti a ochrany látkové střechy.",
+        "price": "dle stavu",
+        "overview": "Impregnace látkové střechy obnoví voděodolnost, pomůže chránit materiál a usnadní údržbu kabrioletů a soft-top střech.",
+        "includes": [
+          "Vyčištění látkové střechy",
+          "Aplikace impregnace",
+          "Kontrola voděodolnosti"
+        ]
+      }
+    ]
+  },
+  "portfolio": {
+    "eyebrow": "FROM INSTAGRAM",
+    "titleLine1": "PORTFOLIO",
+    "titleLine2": "PRÁCÍ.",
+    "intro": "Vybrané realizace. Celý feed najdete na našem Instagramu.",
+    "ctaLabel": "Sledovat",
+    "items": [
+      {
+        "id": "portfolio-1",
+        "src": "/images/portfolio/01.jpg",
+        "alt": "Detailing – precizní péče o lak",
+        "span": "col-span-1 sm:col-span-2 md:col-span-7 md:row-span-2 min-h-[220px] sm:min-h-0",
+        "label": "PAINT CORRECTION"
+      },
+      {
+        "id": "portfolio-2",
+        "src": "/images/portfolio/02.jpg",
+        "alt": "Luxusní vůz po detailingu",
+        "span": "col-span-1 sm:col-span-1 md:col-span-5 min-h-[200px] sm:min-h-0",
+        "label": "SHOWROOM FINISH"
+      },
+      {
+        "id": "portfolio-3",
+        "src": "/images/portfolio/03.jpg",
+        "alt": "Keramická ochrana laku",
+        "span": "col-span-1 sm:col-span-1 md:col-span-5 min-h-[200px] sm:min-h-0",
+        "label": "CERAMIC COAT"
+      },
+      {
+        "id": "portfolio-4",
+        "src": "/images/portfolio/05.jpg",
+        "alt": "Sportovní vůz – finální lesk",
+        "span": "col-span-1 sm:col-span-2 md:col-span-4 min-h-[200px] sm:min-h-0",
+        "label": "EXTERIOR DETAIL"
+      },
+      {
+        "id": "portfolio-5",
+        "src": "/images/portfolio/04.jpg",
+        "alt": "Premium detailing studio work",
+        "span": "col-span-1 sm:col-span-1 md:col-span-4 min-h-[200px] sm:min-h-0",
+        "label": "STUDIO WORK"
+      },
+      {
+        "id": "portfolio-6",
+        "src": "/images/portfolio/06.jpg",
+        "alt": "Finální prezentace vozu",
+        "span": "col-span-1 sm:col-span-1 md:col-span-4 min-h-[200px] sm:min-h-0",
+        "label": "FINAL REVEAL"
+      }
+    ]
+  },
+  "maintenance": {
+    "eyebrow": "ONGOING CARE",
+    "titleLine1": "ÚDRŽBOVÉ",
+    "titleLine2": "PROGRAMY.",
+    "intro": "Jednorázový detailing je začátek. Dlouhodobá estetika vyžaduje systematickou údržbu. Klikněte na program pro detail.",
+    "plans": [
+      {
+        "id": "essential",
+        "code": "M01",
+        "name": "ESSENTIAL",
+        "interval": "měsíčně",
+        "price": "2 490 Kč",
+        "desc": "Pravidelné ruční mytí a základní kontrola povrchu. Ideální pro denní provoz ve městě.",
+        "features": [
+          "Ruční mytí 2× / měsíc",
+          "Interiérový dust-off",
+          "Kontrola laku"
+        ],
+        "overview": "Základní maintenance program pro vozy v denním provozu. Udržuje lak čistý, interiér svěží a včas odhalí drobná poškození dřív, než se zhorší.",
+        "includes": [
+          "2× ruční mytí exteriéru měsíčně",
+          "Vysávání a dust-off interiéru",
+          "Očištění disků a plastů",
+          "Vizuální kontrola stavu laku",
+          "Základní reporting po každé návštěvě",
+          "Flexibilní termíny v rámci měsíce"
+        ],
+        "schedule": [
+          "Rezervace termínu v aplikaci / telefonicky",
+          "Rychlá inspekce při příjmu vozu",
+          "Ruční mytí + interiérový dust-off",
+          "Krátký status report a doporučení"
+        ],
+        "idealFor": "City cars, firemní flotily a majitele, kteří chtějí čistotu bez starostí.",
+        "commitment": "Měsíční předplatné, výpověď ke konci měsíce"
+      },
+      {
+        "id": "signature",
+        "code": "M02",
+        "name": "SIGNATURE",
+        "interval": "měsíčně",
+        "price": "4 900 Kč",
+        "desc": "Komplexní péče včetně dekontaminace a oživení lesku. Pro ty, kdo chtějí stálý showroom look.",
+        "features": [
+          "Full detail 1× / měsíc",
+          "Leštění selected panels",
+          "Priority booking"
+        ],
+        "featured": true,
+        "overview": "Kompletní měsíční péče o vůz s důrazem na stálý showroom vzhled. Kombinuje full detailing, lehký polish vybraných panelů a prioritu v rezervačním kalendáři.",
+        "includes": [
+          "1× full exterior + interior detailing měsíčně",
+          "Dekontaminace dle stavu laku",
+          "Leštění selected panels (dle potřeby)",
+          "Dressing plastů, pneumatik a skel",
+          "Priority booking do 48 hodin",
+          "Měsíční paint condition note"
+        ],
+        "schedule": [
+          "Priority slot dle vašeho kalendáře",
+          "Kompletní intake a fotodokumentace",
+          "Full detail workflow ve studiu",
+          "Finální kontrola a předání s reportem"
+        ],
+        "idealFor": "Majitelé prémiových vozů, kteří chtějí konzistentní deep gloss celý rok.",
+        "commitment": "Měsíční předplatné, doporučený minimální běh 3 měsíce"
+      },
+      {
+        "id": "elite",
+        "code": "M03",
+        "name": "ELITE CARE",
+        "interval": "čtvrtletně",
+        "price": "12 500 Kč",
+        "desc": "Premium maintenance program s keramickou údržbou a kompletnim reportingem stavu vozidla.",
+        "features": [
+          "Ceramic top-up",
+          "Paint health report",
+          "Studio pickup"
+        ],
+        "overview": "Nejvyšší úroveň péče pro vozy s keramikou nebo high-end lakem. Čtvrtletní deep maintenance, ceramic top-up a detailní paint health report včetně možnosti studio pickup.",
+        "includes": [
+          "Čtvrtletní deep maintenance session",
+          "Ceramic top-up / booster dle systému",
+          "Kompletní paint health report + DFT poznámky",
+          "Studio pickup & return (v dojezdové zóně)",
+          "Preferované termíny a dedicated konzultace",
+          "Aftercare balíček produktů na údržbu"
+        ],
+        "schedule": [
+          "Domluva pickup / dovezení do studia",
+          "Diagnostika laku a coatingu",
+          "Deep clean + ceramic maintenance",
+          "Report, doporučení a předání vozu"
+        ],
+        "idealFor": "Vozy s keramickou ochranou, sběratelské a high-value automobiles.",
+        "commitment": "Čtvrtletní cyklus, individuální smlouva na míru"
+      }
+    ]
+  },
+  "vouchers": {
+    "eyebrow": "GIFT THE EXPERIENCE",
+    "title": "DÁRKOVÉ POUKAZY",
+    "cardTagline": "CAR CARE EXCELLENCE",
+    "voucherId": "FLX-2024-883",
+    "cardTitle": "ELITE DETAILING",
+    "cardBody": "Věnujte dokonalost. Poukaz na služby v libovolné hodnotě pro ty nejnáročnější.",
+    "cta": "Zakoupit poukaz",
+    "validity": "VALID AT FLEXICS STUDIO · HUSTOPEČE N. B."
+  },
+  "about": {
+    "eyebrow": "THE STUDIO",
+    "title": "O NÁS.",
+    "body1": "Flexics vznikl z přesvědčení, že péče o automobil je disciplína na pomezí inženýrství a umění. Pracujeme výhradně s certifikovanými procesy a materiály, které obstojí v čase.",
+    "body2": "Každý vůz prochází diagnostikou povrchu, přesným workflow a finální kontrolou pod spektrálním osvětlením. Bez kompromisů. Bez zkratů.",
+    "studioLabel": "DETAILING STUDIO",
+    "mapCta": "Navigovat v mapách",
+    "stats": [
+      {
+        "value": "12+",
+        "label": "LET EXPERIENCE"
+      },
+      {
+        "value": "9H+",
+        "label": "CERAMIC HARDNESS"
+      },
+      {
+        "value": "1",
+        "label": "STUDIO CZ"
+      }
+    ]
+  },
+  "footer": {
+    "brand": "FLEXICS",
+    "tagline": "Inženýrství čistoty. Umění detailu. Budoucnost péče o automobily začíná zde.",
+    "links": [
+      {
+        "label": "Terms of Service",
+        "href": "#"
+      },
+      {
+        "label": "Privacy Policy",
+        "href": "#"
+      },
+      {
+        "label": "Technical Specs",
+        "href": "#"
+      },
+      {
+        "label": "Studio Location",
+        "href": "#about"
+      }
+    ],
+    "copyrightSuffix": "FLEXICS CAR CARE. ENGINEERED FOR PERFECTION.",
+    "creditName": "Michala Vetišky",
+    "creditUrl": "https://michalvetiska.com"
+  },
+  "booking": {
+    "title": "Rezervace termínu",
+    "subtitle": "Zavolejte nám, nebo napište e-mail — ozveme se co nejdřív.",
+    "phoneLabel": "TELEFON",
+    "emailLabel": "E-MAIL",
+    "nameLabel": "Jméno",
+    "messageLabel": "Zpráva",
+    "submitLabel": "Odeslat e-mail"
+  }
+}

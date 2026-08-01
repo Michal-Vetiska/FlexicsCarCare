@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { FOOTER_LINKS } from '../constants'
+import { computed } from 'vue'
+import { useContent } from '../composables/useContent'
 
+const { content } = useContent()
+const footer = computed(() => content.value!.footer)
 const currentYear = new Date().getFullYear()
 </script>
 
 <template>
   <footer
+    v-if="content"
     class="w-full flex flex-col items-center gap-element-gap px-margin-page pt-section-gap pb-8 bg-surface-container-lowest border-t border-outline-variant/30"
   >
     <div
@@ -13,20 +17,20 @@ const currentYear = new Date().getFullYear()
     >
       <div class="space-y-6">
         <span class="font-headline-lg text-headline-lg text-surface-variant opacity-20 block break-all">
-          FLEXICS
+          {{ footer.brand }}
         </span>
         <p class="font-body-md text-on-surface-variant max-w-xs">
-          Inženýrství čistoty. Umění detailu. Budoucnost péče o automobily začíná zde.
+          {{ footer.tagline }}
         </p>
       </div>
       <div class="grid grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 gap-y-4">
         <a
-          v-for="link in FOOTER_LINKS"
-          :key="link"
-          :href="link === 'Studio Location' ? '#about' : '#'"
+          v-for="link in footer.links"
+          :key="link.label"
+          :href="link.href"
           class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary-fixed-dim transition-colors"
         >
-          {{ link }}
+          {{ link.label }}
         </a>
       </div>
     </div>
@@ -36,21 +40,21 @@ const currentYear = new Date().getFullYear()
     >
       <div class="flex flex-col items-center md:items-start gap-2">
         <span class="font-label-caps text-[10px] text-primary-fixed opacity-60">
-          © {{ currentYear }} FLEXICS CAR CARE. ENGINEERED FOR PERFECTION.
+          © {{ currentYear }} {{ footer.copyrightSuffix }}
         </span>
         <p class="font-label-caps text-[10px] text-on-surface-variant">
           Web od
           <a
-            href="https://michalvetiska.com"
+            :href="footer.creditUrl"
             target="_blank"
             rel="noopener noreferrer"
             class="text-primary-container hover:text-primary transition-colors"
           >
-            Michala Vetišky
+            {{ footer.creditName }}
           </a>
           ·
           <a
-            href="https://michalvetiska.com"
+            :href="footer.creditUrl"
             target="_blank"
             rel="noopener noreferrer"
             class="text-on-surface-variant hover:text-primary-container transition-colors"

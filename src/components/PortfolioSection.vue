@@ -1,38 +1,47 @@
 <script setup lang="ts">
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL, PORTFOLIO_ITEMS } from '../constants'
+import { computed } from 'vue'
+import { useContent } from '../composables/useContent'
+
+const { content } = useContent()
+const portfolio = computed(() => content.value!.portfolio)
+const instagram = computed(() => content.value!.contact)
 </script>
 
 <template>
-  <section id="portfolio" class="py-section-gap px-margin-page bg-surface-container-lowest">
+  <section v-if="content" id="portfolio" class="py-section-gap px-margin-page bg-surface-container-lowest">
     <div class="max-w-container-max mx-auto">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-element-gap gap-6 md:gap-8 reveal">
         <div class="max-w-xl">
           <span class="font-label-caps text-label-caps text-primary-container mb-4 block">
-            FROM INSTAGRAM
+            {{ portfolio.eyebrow }}
           </span>
-          <h2 class="font-headline-lg text-headline-lg">PORTFOLIO<br />PRÁCÍ.</h2>
+          <h2 class="font-headline-lg text-headline-lg">
+            {{ portfolio.titleLine1 }}<br />{{ portfolio.titleLine2 }}
+          </h2>
         </div>
         <div class="flex flex-col items-start md:items-end gap-4">
           <p class="text-on-surface-variant font-body-md max-w-xs md:text-right">
-            Vybrané realizace. Celý feed najdete na našem Instagramu.
+            {{ portfolio.intro }}
           </p>
           <a
-            :href="INSTAGRAM_URL"
+            :href="instagram.instagramUrl"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 font-label-caps text-label-caps text-primary-container hover:tracking-widest transition-all duration-300"
           >
-            {{ INSTAGRAM_HANDLE }}
+            {{ instagram.instagramHandle }}
             <span class="material-symbols-outlined text-base">arrow_outward</span>
           </a>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 sm:gap-4 md:gap-6 auto-rows-auto md:auto-rows-[240px] lg:auto-rows-[260px]">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 sm:gap-4 md:gap-6 auto-rows-auto md:auto-rows-[240px] lg:auto-rows-[260px]"
+      >
         <a
-          v-for="(item, index) in PORTFOLIO_ITEMS"
-          :key="item.src + index"
-          :href="INSTAGRAM_URL"
+          v-for="(item, index) in portfolio.items"
+          :key="item.id"
+          :href="instagram.instagramUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="group relative overflow-hidden glass-panel shimmer-trigger reveal block"
@@ -70,12 +79,12 @@ import { INSTAGRAM_HANDLE, INSTAGRAM_URL, PORTFOLIO_ITEMS } from '../constants'
 
       <div class="mt-12 flex justify-center reveal">
         <a
-          :href="INSTAGRAM_URL"
+          :href="instagram.instagramUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="bg-primary-container text-on-primary-container px-6 sm:px-10 py-3.5 sm:py-4 rounded-none font-label-caps text-label-caps font-bold hover:tracking-widest transition-all duration-500 shimmer-trigger laser-glow w-full sm:w-auto text-center"
         >
-          Sledovat {{ INSTAGRAM_HANDLE }}
+          {{ portfolio.ctaLabel }} {{ instagram.instagramHandle }}
         </a>
       </div>
     </div>

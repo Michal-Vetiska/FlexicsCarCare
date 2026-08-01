@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { MAINTENANCE_PLANS, type MaintenancePlan } from '../data/maintenance'
+import { computed, ref } from 'vue'
+import { useContent } from '../composables/useContent'
+import type { MaintenancePlan } from '../types/content'
 import MaintenanceDetailModal from './MaintenanceDetailModal.vue'
 
+const { content } = useContent()
+const maintenance = computed(() => content.value!.maintenance)
 const selected = ref<MaintenancePlan | null>(null)
 
 function openPlan(plan: MaintenancePlan) {
@@ -15,24 +18,34 @@ function closePlan() {
 </script>
 
 <template>
-  <section id="maintenance" class="py-section-gap px-margin-page bg-surface-container-low">
+  <section v-if="content" id="maintenance" class="py-section-gap px-margin-page bg-surface-container-low">
     <div class="max-w-container-max mx-auto">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-element-gap gap-6 md:gap-8 reveal">
         <div class="max-w-xl">
           <span class="font-label-caps text-label-caps text-primary-container mb-4 block">
-            ONGOING CARE
+            {{ maintenance.eyebrow }}
           </span>
-          <h2 class="font-headline-lg text-headline-lg">ÚDRŽBOVÉ<br />PROGRAMY.</h2>
+          <h2 class="font-headline-lg text-headline-lg">
+            {{ maintenance.titleLine1 }}<br />{{ maintenance.titleLine2 }}
+          </h2>
         </div>
         <p class="text-on-surface-variant font-body-md max-w-xs text-left md:text-right">
-          Jednorázový detailing je začátek. Dlouhodobá estetika vyžaduje systematickou údržbu.
-          Klikněte na program pro detail.
+          {{ maintenance.intro }}
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+      <div
+        class="grid gap-5 sm:gap-6 md:gap-8"
+        :class="
+          maintenance.plans.length === 1
+            ? 'grid-cols-1 max-w-md'
+            : maintenance.plans.length === 2
+              ? 'grid-cols-1 sm:grid-cols-2'
+              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+        "
+      >
         <button
-          v-for="plan in MAINTENANCE_PLANS"
+          v-for="plan in maintenance.plans"
           :key="plan.code"
           type="button"
           class="group glass-panel p-6 sm:p-8 md:p-10 flex flex-col justify-between hover:-translate-y-2 shimmer-trigger reveal text-left cursor-pointer"

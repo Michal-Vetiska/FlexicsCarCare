@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, watch, type PropType } from 'vue'
-import type { ServiceDetail } from '../data/services'
+import type { ServiceDetail } from '../types/content'
 import { useBookingModal } from '../composables/useBookingModal'
 
 const props = defineProps({

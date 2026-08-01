@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { LOGO_URL } from '../constants'
+import { computed } from 'vue'
+import { useContent } from '../composables/useContent'
 import { useBookingModal } from '../composables/useBookingModal'
 
+const { content } = useContent()
+const vouchers = computed(() => content.value!.vouchers)
 const { open: openBooking } = useBookingModal()
 </script>
 
 <template>
-  <section id="vouchers" class="py-section-gap relative overflow-hidden bg-surface-container-lowest">
+  <section v-if="content" id="vouchers" class="py-section-gap relative overflow-hidden bg-surface-container-lowest">
     <div
       class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"
     />
@@ -14,9 +17,9 @@ const { open: openBooking } = useBookingModal()
     <div class="w-full max-w-container-max mx-auto px-margin-page reveal">
       <div class="flex flex-col items-center text-center mb-10 sm:mb-16">
         <span class="font-label-caps text-label-caps text-primary-container mb-4">
-          GIFT THE EXPERIENCE
+          {{ vouchers.eyebrow }}
         </span>
-        <h2 class="font-headline-lg text-headline-lg">DÁRKOVÉ POUKAZY</h2>
+        <h2 class="font-headline-lg text-headline-lg">{{ vouchers.title }}</h2>
       </div>
 
       <div class="flex justify-center">
@@ -29,28 +32,28 @@ const { open: openBooking } = useBookingModal()
             <div class="flex justify-between items-start relative z-10 gap-4">
               <div class="min-w-0">
                 <img
-                  :src="LOGO_URL"
+                  :src="content.meta.logoUrl"
                   alt="FLEXICS Logo"
                   class="w-12 h-12 sm:w-16 sm:h-16 object-contain mb-3 sm:mb-4"
                 />
                 <span class="font-label-caps text-[10px] sm:text-label-caps tracking-[0.2em] sm:tracking-[0.4em] opacity-40 block">
-                  CAR CARE EXCELLENCE
+                  {{ vouchers.cardTagline }}
                 </span>
               </div>
               <div class="text-right shrink-0">
                 <span class="font-label-caps text-label-caps block opacity-40">VOUCHER ID</span>
                 <span class="font-body-md font-bold tracking-wider sm:tracking-widest text-sm sm:text-base">
-                  FLX-2024-883
+                  {{ vouchers.voucherId }}
                 </span>
               </div>
             </div>
 
             <div class="relative z-10 my-6 sm:my-0">
               <h3 class="font-display-xl text-headline-lg italic opacity-80 mb-2">
-                ELITE DETAILING
+                {{ vouchers.cardTitle }}
               </h3>
               <p class="font-body-md text-on-surface-variant max-w-sm">
-                Věnujte dokonalost. Poukaz na služby v libovolné hodnotě pro ty nejnáročnější.
+                {{ vouchers.cardBody }}
               </p>
             </div>
 
@@ -62,12 +65,12 @@ const { open: openBooking } = useBookingModal()
                 class="bg-primary-container text-on-primary-container px-6 sm:px-10 py-3.5 sm:py-4 rounded-none font-label-caps text-label-caps font-bold hover:tracking-widest transition-all duration-500 shimmer-trigger w-full sm:w-auto"
                 @click="openBooking"
               >
-                Zakoupit poukaz
+                {{ vouchers.cta }}
               </button>
               <div class="flex flex-col items-start sm:items-end">
                 <div class="w-24 h-1 bg-primary-container mb-2" />
                 <span class="font-label-caps text-[10px] opacity-30 leading-relaxed">
-                  VALID AT FLEXICS STUDIO · HUSTOPEČE N. B.
+                  {{ vouchers.validity }}
                 </span>
               </div>
             </div>
