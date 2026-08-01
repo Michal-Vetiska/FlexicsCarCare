@@ -1,5 +1,4 @@
-import { connectLambda } from '@netlify/blobs'
-import type { Handler, HandlerEvent } from '@netlify/functions'
+import type { Config } from '@netlify/functions'
 import {
   clearSessionCookieHeader,
   createSessionToken,
@@ -7,46 +6,24 @@ import {
   isAuthenticated,
   sessionCookieHeader,
 } from '../lib/auth.js'
-import { getApiPath, json } from '../lib/http.js'
-import { parseMultipart, safeUploadFilename } from '../lib/multipart.js'
+import { getApiPath } from '../lib/http.js'
+import { safeUploadFilename } from '../lib/multipart.js'
 import { readContent, saveUpload, writeContent } from '../lib/store.js'
 
-function getHeader(event: HandlerEvent, name: string): string | undefined {
-  const lower = name.toLowerCase()
-  for (const [key, value] of Object.entries(event.headers)) {
-    if (key.toLowerCase() === lower) return value
-  }
-  return undefined
-}
-
-function parseBody(event: HandlerEvent): unknown {
-  if (!event.body) return null
-  const raw = event.isBase64Encoded
-    ? Buffer.from(event.body, 'base64').toString('utf8')
-    : event.body
-  try {
-    return JSON.parse(raw)
-  } catch {
-    return null
-  }
-}
-
-function ensureBlobs(event: HandlerEvent) {
-  const blobs = (event as HandlerEvent & { blobs?: string }).blobs
-  if (!blobs) return
-  connectLambda({
-    blobs,
-    headers: Object.fromEntries(
-      Object.entries(event.headers).filter((entry): entry is [string, string] => typeof entry[1] === 'string'),
-    ),
+function json(status: number, body: unknown, init: HeadersInit = {}) {
+  return Response.json(body, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store',
+      ...Object.fromEntries(new Headers(init).entries()),
+    },
   })
 }
 
-export const handler: Handler = async (event) => {
-  ensureBlobs(event)
-
-  const method = (event.httpMethod || 'GET').toUpperCase()
-  const path = getApiPath(event.path)
+export default async (req: Request) => {
+  const method = req.method.toUpperCase()
+  const path = getApiPath(new URL(req.url).pathname)
+  const cookie = req.headers.get('cookie') || undefined
 
   try {
     if (method === 'GET' && (path === '/content' || path === '/content/')) {
@@ -54,20 +31,39 @@ export const handler: Handler = async (event) => {
     }
 
     if (method === 'PUT' && (path === '/admin/content' || path === '/admin/content/')) {
-      if (!(await isAuthenticated(getHeader(event, 'cookie')))) {
+      if (!(await isAuthenticated(cookie))) {
         return json(401, { error: 'Unauthorized' })
       }
-      const body = parseBody(event)
+      let body: unknown
+      try {
+        body = await req.json()
+      } catch {
+        return json(400, { error: 'Neplatná data' })
+      }
       if (!body || typeof body !== 'object') {
         return json(400, { error: 'Neplatná data' })
       }
-      const content = await writeContent(body)
-      return json(200, { ok: true, content })
+      try {
+        const content = await writeContent(body)
+        return json(200, { ok: true, content })
+      } catch (err) {
+        console.error('writeContent failed', err)
+        const detail = err instanceof Error ? err.message : String(err)
+        return json(500, {
+          error: 'Nepodařilo se uložit obsah',
+          detail,
+        })
+      }
     }
 
     if (method === 'POST' && (path === '/admin/login' || path === '/admin/login/')) {
-      const body = parseBody(event) as { password?: string } | null
-      if (body?.password === getAdminPassword()) {
+      let body: { password?: string }
+      try {
+        body = (await req.json()) as { password?: string }
+      } catch {
+        return json(400, { error: 'Neplatná data' })
+      }
+      if (body.password === getAdminPassword()) {
         const token = await createSessionToken()
         return json(200, { ok: true }, { 'Set-Cookie': sessionCookieHeader(token) })
       }
@@ -79,41 +75,54 @@ export const handler: Handler = async (event) => {
     }
 
     if (method === 'GET' && (path === '/admin/me' || path === '/admin/me/')) {
-      if (await isAuthenticated(getHeader(event, 'cookie'))) {
+      if (await isAuthenticated(cookie)) {
         return json(200, { authenticated: true })
       }
       return json(401, { authenticated: false })
     }
 
     if (method === 'POST' && (path === '/admin/upload' || path === '/admin/upload/')) {
-      if (!(await isAuthenticated(getHeader(event, 'cookie')))) {
+      if (!(await isAuthenticated(cookie))) {
         return json(401, { error: 'Unauthorized' })
       }
 
-      let file
+      let form: FormData
       try {
-        file = await parseMultipart(event)
+        form = await req.formData()
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Upload selhal'
-        return json(400, { error: message })
+        console.error('formData failed', err)
+        return json(400, { error: 'Upload selhal' })
       }
 
-      if (!file) {
+      const entry = form.get('file')
+      if (!entry || typeof entry === 'string') {
         return json(400, { error: 'Soubor chybí' })
       }
 
+      const file = entry as File
+      const mimeType = file.type || 'application/octet-stream'
       const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
-      if (!allowed.includes(file.mimeType)) {
+      if (!allowed.includes(mimeType)) {
         return json(400, { error: 'Povolené formáty: JPEG, PNG, WebP' })
       }
+      if (file.size > 5 * 1024 * 1024) {
+        return json(400, { error: 'Soubor je příliš velký (max 5 MB)' })
+      }
 
-      const filename = safeUploadFilename(file.filename, file.mimeType)
-      const url = await saveUpload(filename, file.data, file.mimeType)
-      return json(200, { url })
+      try {
+        const filename = safeUploadFilename(file.name || 'upload.bin', mimeType)
+        const buffer = new Uint8Array(await file.arrayBuffer())
+        const url = await saveUpload(filename, buffer, mimeType)
+        return json(200, { url })
+      } catch (err) {
+        console.error('upload failed', err)
+        const detail = err instanceof Error ? err.message : String(err)
+        return json(500, { error: 'Upload selhal', detail })
+      }
     }
 
     if (method === 'GET' && (path === '/health' || path === '/health/')) {
-      return json(200, { ok: true, runtime: 'netlify-functions' })
+      return json(200, { ok: true, runtime: 'netlify-functions-v2' })
     }
 
     return json(404, { error: 'Not found', path, method })
@@ -122,4 +131,9 @@ export const handler: Handler = async (event) => {
     const detail = err instanceof Error ? err.message : String(err)
     return json(500, { error: 'Interní chyba serveru', detail })
   }
+}
+
+// Functions v2: Blobs kontext se nastaví automaticky (ne Lambda compat)
+export const config: Config = {
+  path: '/api/*',
 }

@@ -5,14 +5,27 @@ const STORE_NAME = 'cms'
 const CONTENT_KEY = 'content'
 
 export function getCmsStore() {
+  const siteID = process.env.BLOBS_SITE_ID || process.env.SITE_ID
+  const token = process.env.BLOBS_TOKEN || process.env.NETLIFY_BLOBS_TOKEN
+
+  // Explicitní credentials (volitelné) — jinak Functions v2 kontext
+  if (siteID && token) {
+    return getStore({
+      name: STORE_NAME,
+      siteID,
+      token,
+      consistency: 'strong',
+    })
+  }
+
   return getStore({ name: STORE_NAME, consistency: 'strong' })
 }
 
 export async function readContent(): Promise<unknown> {
   try {
     const store = getCmsStore()
-    const raw = await store.get(CONTENT_KEY, { type: 'text' })
-    if (!raw) {
+    const data = await store.get(CONTENT_KEY, { type: 'json' })
+    if (data == null) {
       try {
         await store.setJSON(CONTENT_KEY, seed)
       } catch (err) {
@@ -20,9 +33,8 @@ export async function readContent(): Promise<unknown> {
       }
       return seed
     }
-    return JSON.parse(raw)
+    return data
   } catch (err) {
-    // Bez Blobs kontextu aspoň zobrazíme výchozí obsah webu
     console.error('readContent failed, falling back to seed', err)
     return seed
   }
@@ -31,7 +43,8 @@ export async function readContent(): Promise<unknown> {
 export async function writeContent(data: unknown): Promise<unknown> {
   const store = getCmsStore()
   await store.setJSON(CONTENT_KEY, data)
-  return readContent()
+  const saved = await store.get(CONTENT_KEY, { type: 'json' })
+  return saved ?? data
 }
 
 export async function saveUpload(

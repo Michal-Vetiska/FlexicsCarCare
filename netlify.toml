@@ -6,7 +6,6 @@
 [functions]
   node_bundler = "esbuild"
   directory = "netlify/functions"
-  external_node_modules = ["@netlify/blobs"]
 
 [dev]
   command = "npm run dev:client"
@@ -14,16 +13,17 @@
   port = 8888
   framework = "#custom"
 
-# Musí být PŘED SPA fallbackem, jinak /api spadne do index.html
+# Zachytí /api a /uploads PŘED SPA fallbackem (Functions v2 config.path).
+# Důležité: NEpřesměrovávat na /.netlify/functions — to zapne Lambda mode a rozbije Blobs.
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/uploads/*"
-  to = "/.netlify/functions/media/:splat"
+  to = "/uploads/:splat"
   status = 200
   force = true
 
