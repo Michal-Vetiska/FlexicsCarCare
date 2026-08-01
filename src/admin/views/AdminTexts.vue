@@ -5,13 +5,13 @@ const { draft } = useAdminContent()
 </script>
 
 <template>
-  <div v-if="draft" class="space-y-8 max-w-4xl">
+  <div v-if="draft" class="max-w-4xl space-y-6 sm:space-y-8">
     <div>
-      <h2 class="text-2xl font-bold tracking-tight">Texty & kontakt</h2>
-      <p class="text-slate-500 mt-1">Navigace, hero texty, o nás, poukazy, footer a kontaktní údaje.</p>
+      <h2 class="text-xl font-bold tracking-tight sm:text-2xl">Texty & kontakt</h2>
+      <p class="mt-1 text-sm text-slate-500 sm:text-base">Navigace, hero texty, o nás, poukazy, footer a kontaktní údaje.</p>
     </div>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
       <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Navigace</h3>
       <div v-for="(link, i) in draft.nav.links" :key="i" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">
@@ -29,8 +29,8 @@ const { draft } = useAdminContent()
       </label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Kontakt</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Kontakt</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">
           Telefon (zobrazení)
@@ -75,8 +75,8 @@ const { draft } = useAdminContent()
       </div>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Hero</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Hero</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.hero.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Kinetic text<input v-model="draft.hero.kineticText" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -90,8 +90,8 @@ const { draft } = useAdminContent()
       </div>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Služby – nadpis sekce</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Služby – nadpis sekce</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.services.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Additional title<input v-model="draft.services.additionalTitle" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -101,8 +101,8 @@ const { draft } = useAdminContent()
       <label class="block text-xs font-semibold text-slate-500">Intro<textarea v-model="draft.services.intro" rows="2" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Portfolio – nadpis</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Portfolio – nadpis</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.portfolio.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">CTA<input v-model="draft.portfolio.ctaLabel" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -112,8 +112,8 @@ const { draft } = useAdminContent()
       <label class="block text-xs font-semibold text-slate-500">Intro<textarea v-model="draft.portfolio.intro" rows="2" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Údržba – nadpis</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Údržba – nadpis</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.maintenance.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Title 1<input v-model="draft.maintenance.titleLine1" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -122,8 +122,8 @@ const { draft } = useAdminContent()
       <label class="block text-xs font-semibold text-slate-500">Intro<textarea v-model="draft.maintenance.intro" rows="2" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Poukazy</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Poukazy</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.vouchers.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Title<input v-model="draft.vouchers.title" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -136,8 +136,8 @@ const { draft } = useAdminContent()
       <label class="block text-xs font-semibold text-slate-500">Validity<input v-model="draft.vouchers.validity" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">O nás</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">O nás</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Eyebrow<input v-model="draft.about.eyebrow" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Title<input v-model="draft.about.title" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -152,8 +152,8 @@ const { draft } = useAdminContent()
       </div>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Footer</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Footer</h3>
       <label class="block text-xs font-semibold text-slate-500">Brand<input v-model="draft.footer.brand" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
       <label class="block text-xs font-semibold text-slate-500">Tagline<textarea v-model="draft.footer.tagline" rows="2" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
       <label class="block text-xs font-semibold text-slate-500">Copyright suffix<input v-model="draft.footer.copyrightSuffix" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -163,8 +163,8 @@ const { draft } = useAdminContent()
       </div>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Booking modal</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Booking modal</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label class="block text-xs font-semibold text-slate-500">Title<input v-model="draft.booking.title" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
         <label class="block text-xs font-semibold text-slate-500">Submit<input v-model="draft.booking.submitLabel" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
@@ -172,8 +172,8 @@ const { draft } = useAdminContent()
       <label class="block text-xs font-semibold text-slate-500">Subtitle<textarea v-model="draft.booking.subtitle" rows="2" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Meta</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Meta</h3>
       <label class="block text-xs font-semibold text-slate-500">Title tabu<input v-model="draft.meta.title" class="mt-1 w-full border border-slate-300 px-3 py-2" /></label>
     </section>
   </div>

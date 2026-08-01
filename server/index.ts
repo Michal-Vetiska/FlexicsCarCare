@@ -42,6 +42,20 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true })
 })
 
-app.listen(PORT, () => {
+// Pod concurrently/npm není TTY — bez resume() Node někdy hned skončí (exit 0)
+if (!process.stdin.isTTY) {
+  process.stdin.resume()
+}
+
+const server = app.listen(PORT, () => {
   console.log(`API listening on http://localhost:${PORT}`)
+})
+
+server.on('error', (err: NodeJS.ErrnoException) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} je obsazený. Ukonči starý proces nebo zvol jiný PORT.`)
+  } else {
+    console.error(err)
+  }
+  process.exit(1)
 })

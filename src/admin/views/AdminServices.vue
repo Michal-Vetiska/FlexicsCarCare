@@ -123,17 +123,17 @@ function setProcess(target: ServiceDetail, value: string) {
 </script>
 
 <template>
-  <div v-if="draft" class="space-y-8 max-w-5xl">
-    <div class="flex flex-wrap items-start justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight">Služby</h2>
-        <p class="text-slate-500 mt-1">
+  <div v-if="draft" class="max-w-5xl space-y-6 sm:space-y-8">
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
+      <div class="min-w-0">
+        <h2 class="text-xl font-bold tracking-tight sm:text-2xl">Služby</h2>
+        <p class="mt-1 text-sm text-slate-500 sm:text-base">
           Každá kategorie má vlastní barvu. Uvnitř jsou karty služeb v bílém bloku.
         </p>
       </div>
       <button
         type="button"
-        class="bg-cyan-700 text-white px-4 py-2 text-sm font-semibold uppercase tracking-wider hover:bg-cyan-800"
+        class="min-h-11 w-full bg-cyan-700 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-white hover:bg-cyan-800 sm:w-auto"
         @click="addCategory"
       >
         + Kategorie
@@ -143,21 +143,21 @@ function setProcess(target: ServiceDetail, value: string) {
     <section
       v-for="(category, catIndex) in draft.services.categories"
       :key="category.id"
-      class="border-2 border-l-4 p-5 space-y-5 rounded-sm shadow-sm"
+      class="space-y-5 rounded-sm border-2 border-l-4 p-4 shadow-sm sm:p-5"
       :class="[theme(catIndex).shell, theme(catIndex).accent]"
     >
       <div
-        class="flex flex-wrap items-end justify-between gap-3 border pb-4 p-4 -mx-1"
+        class="flex flex-col gap-3 border p-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-3 sm:p-4 -mx-0 sm:-mx-1 sm:pb-4"
         :class="theme(catIndex).header"
       >
-        <div class="flex items-start gap-3 flex-1 min-w-0">
+        <div class="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start">
           <span
-            class="shrink-0 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-sm"
+            class="w-fit shrink-0 rounded-sm px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider"
             :class="theme(catIndex).badge"
           >
             Kategorie
           </span>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
+          <div class="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-3">
             <label class="block text-xs font-semibold text-slate-600">
               Kód
               <input v-model="category.code" class="mt-1 w-full border border-slate-300 bg-white px-3 py-2" />
@@ -168,10 +168,10 @@ function setProcess(target: ServiceDetail, value: string) {
             </label>
           </div>
         </div>
-        <div class="flex gap-2">
+        <div class="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <button
             type="button"
-            class="border px-3 py-2 text-xs font-semibold uppercase transition-colors"
+            class="min-h-11 flex-1 border px-3 py-2 text-xs font-semibold uppercase transition-colors sm:flex-none"
             :class="theme(catIndex).btn"
             @click="addService(catIndex)"
           >
@@ -179,7 +179,7 @@ function setProcess(target: ServiceDetail, value: string) {
           </button>
           <button
             type="button"
-            class="border border-red-300 text-red-700 bg-white px-3 py-2 text-xs font-semibold uppercase hover:bg-red-50"
+            class="min-h-11 flex-1 border border-red-300 bg-white px-3 py-2 text-xs font-semibold uppercase text-red-700 hover:bg-red-50 sm:flex-none"
             @click="removeCategory(catIndex)"
           >
             Smazat kategorii
@@ -244,19 +244,19 @@ function setProcess(target: ServiceDetail, value: string) {
       </div>
     </section>
 
-    <section class="border-2 border-indigo-300 border-l-4 border-l-indigo-600 bg-indigo-50/50 p-5 space-y-5 shadow-sm">
-      <div class="flex items-center justify-between gap-3 flex-wrap bg-indigo-100/80 border border-indigo-200 p-4 -mx-1">
-        <div class="flex items-center gap-2">
-          <span class="bg-indigo-700 text-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider">
+    <section class="space-y-5 border-2 border-l-4 border-indigo-300 border-l-indigo-600 bg-indigo-50/50 p-4 shadow-sm sm:p-5">
+      <div class="mx-0 flex flex-col gap-3 border border-indigo-200 bg-indigo-100/80 p-3 sm:-mx-1 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-indigo-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
             Doplňkové
           </span>
-          <h3 class="font-bold text-sm uppercase tracking-wider text-indigo-900">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-900">
             Doplňkové služby
           </h3>
         </div>
         <button
           type="button"
-          class="border border-indigo-400 text-indigo-900 bg-white px-3 py-2 text-xs font-semibold uppercase hover:bg-indigo-50"
+          class="min-h-11 w-full border border-indigo-400 bg-white px-3 py-2 text-xs font-semibold uppercase text-indigo-900 hover:bg-indigo-50 sm:w-auto"
           @click="addAdditional"
         >
           + Doplňková

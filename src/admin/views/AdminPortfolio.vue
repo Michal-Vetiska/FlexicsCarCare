@@ -41,26 +41,26 @@ async function onFile(index: number, event: Event) {
 </script>
 
 <template>
-  <div v-if="draft" class="space-y-8 max-w-5xl">
-    <div class="flex flex-wrap items-start justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight">Portfolio</h2>
-        <p class="text-slate-500 mt-1">Přidávejte fotky a popisky galerie.</p>
+  <div v-if="draft" class="max-w-5xl space-y-6 sm:space-y-8">
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
+      <div class="min-w-0">
+        <h2 class="text-xl font-bold tracking-tight sm:text-2xl">Portfolio</h2>
+        <p class="mt-1 text-sm text-slate-500 sm:text-base">Přidávejte fotky a popisky galerie.</p>
       </div>
       <button
         type="button"
-        class="bg-cyan-700 text-white px-4 py-2 text-sm font-semibold uppercase tracking-wider"
+        class="min-h-11 w-full bg-cyan-700 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-white sm:w-auto"
         @click="addItem"
       >
         + Položka
       </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div class="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
       <section
         v-for="(item, index) in draft.portfolio.items"
         :key="item.id"
-        class="bg-white border border-slate-200 p-4 space-y-3"
+        class="space-y-3 border border-slate-200 bg-white p-4"
       >
         <div class="flex justify-between items-start gap-3">
           <p class="text-xs font-bold uppercase tracking-wider text-slate-600">#{{ index + 1 }}</p>

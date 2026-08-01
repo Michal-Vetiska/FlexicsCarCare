@@ -25,19 +25,19 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-100 flex items-center justify-center p-6">
+  <div class="flex min-h-screen items-center justify-center bg-slate-100 p-4 sm:p-6">
     <form
-      class="w-full max-w-sm bg-white border border-slate-200 shadow-sm p-8 space-y-6"
+      class="w-full max-w-sm space-y-6 border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
       @submit.prevent="onSubmit"
     >
       <div>
-        <p class="text-xs font-semibold tracking-[0.15em] uppercase text-cyan-700 mb-2">Admin</p>
-        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Flexic's CMS</h1>
-        <p class="text-sm text-slate-500 mt-2">Zadejte heslo pro správu webu.</p>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-cyan-700">Admin</p>
+        <h1 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">Flexic's CMS</h1>
+        <p class="mt-2 text-sm text-slate-500">Zadejte heslo pro správu webu.</p>
       </div>
 
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2" for="admin-password">
+        <label class="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500" for="admin-password">
           Heslo
         </label>
         <input
@@ -46,7 +46,8 @@ async function onSubmit() {
           type="password"
           required
           autofocus
-          class="w-full border border-slate-300 px-3 py-2.5 text-slate-900 outline-none focus:border-cyan-600"
+          autocomplete="current-password"
+          class="w-full border border-slate-300 px-3 py-3 text-base text-slate-900 outline-none focus:border-cyan-600 sm:py-2.5 sm:text-sm"
           placeholder="••••••••"
         />
       </div>
@@ -55,7 +56,7 @@ async function onSubmit() {
 
       <button
         type="submit"
-        class="w-full bg-slate-900 text-white py-3 text-sm font-semibold uppercase tracking-wider hover:bg-slate-800 disabled:opacity-60"
+        class="min-h-11 w-full bg-slate-900 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-slate-800 disabled:opacity-60"
         :disabled="loading"
       >
         {{ loading ? 'Přihlašuji…' : 'Přihlásit se' }}

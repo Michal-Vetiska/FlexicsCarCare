@@ -8,6 +8,13 @@ async function parseJson<T>(res: Response): Promise<T> {
   return data
 }
 
+let sessionCache: { ok: boolean; checkedAt: number } | null = null
+const SESSION_CACHE_MS = 60_000
+
+export function invalidateAdminSessionCache() {
+  sessionCache = null
+}
+
 export async function fetchContent(): Promise<SiteContent> {
   const res = await fetch('/api/content', { credentials: 'include' })
   return parseJson<SiteContent>(res)
@@ -32,6 +39,7 @@ export async function loginAdmin(password: string): Promise<void> {
     body: JSON.stringify({ password }),
   })
   await parseJson(res)
+  sessionCache = { ok: true, checkedAt: Date.now() }
 }
 
 export async function logoutAdmin(): Promise<void> {
@@ -40,11 +48,23 @@ export async function logoutAdmin(): Promise<void> {
     credentials: 'include',
   })
   await parseJson(res)
+  sessionCache = { ok: false, checkedAt: Date.now() }
 }
 
-export async function checkAdminSession(): Promise<boolean> {
+export async function checkAdminSession(options?: { bypassCache?: boolean }): Promise<boolean> {
+  const now = Date.now()
+  if (
+    !options?.bypassCache &&
+    sessionCache &&
+    now - sessionCache.checkedAt < SESSION_CACHE_MS
+  ) {
+    return sessionCache.ok
+  }
+
   const res = await fetch('/api/admin/me', { credentials: 'include' })
-  return res.ok
+  const ok = res.ok
+  sessionCache = { ok, checkedAt: now }
+  return ok
 }
 
 export async function uploadImage(file: File): Promise<string> {

@@ -21,7 +21,7 @@ const router = createRouter({
       component: () => import('../admin/AdminLayout.vue'),
       meta: { requiresAuth: true },
       children: [
-        { path: '', redirect: '/admin/texts' },
+        { path: '', redirect: { name: 'admin-texts' } },
         {
           path: 'texts',
           name: 'admin-texts',
@@ -51,22 +51,31 @@ const router = createRouter({
     },
   ],
   scrollBehavior(to) {
+    if (to.path.startsWith('/admin')) return false
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
   },
 })
 
-router.beforeEach(async (to) => {
-  if (!to.meta.requiresAuth && !to.meta.guest) return true
+router.beforeEach(async (to, from) => {
+  const needsAuth = to.matched.some((r) => r.meta.requiresAuth)
+  const isGuest = to.matched.some((r) => r.meta.guest)
+
+  if (!needsAuth && !isGuest) return true
+
+  // Už jsme uvnitř adminu → nepovoluj další /me roundtrip
+  if (needsAuth && from.matched.some((r) => r.meta.requiresAuth)) {
+    return true
+  }
 
   const ok = await checkAdminSession()
 
-  if (to.meta.requiresAuth && !ok) {
+  if (needsAuth && !ok) {
     return { name: 'admin-login', query: { redirect: to.fullPath } }
   }
 
-  if (to.meta.guest && ok) {
-    return { path: '/admin/texts' }
+  if (isGuest && ok) {
+    return { name: 'admin-texts' }
   }
 
   return true

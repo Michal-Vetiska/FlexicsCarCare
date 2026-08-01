@@ -33,14 +33,14 @@ async function onLogoFile(event: Event) {
 </script>
 
 <template>
-  <div v-if="draft" class="space-y-8 max-w-3xl">
+  <div v-if="draft" class="max-w-3xl space-y-6 sm:space-y-8">
     <div>
-      <h2 class="text-2xl font-bold tracking-tight">Média</h2>
-      <p class="text-slate-500 mt-1">Hero obrázek a logo webu.</p>
+      <h2 class="text-xl font-bold tracking-tight sm:text-2xl">Média</h2>
+      <p class="mt-1 text-sm text-slate-500 sm:text-base">Hero obrázek a logo webu.</p>
     </div>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Hero obrázek</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Hero obrázek</h3>
       <img :src="draft.hero.imageUrl" alt="Hero" class="w-full aspect-video object-cover border border-slate-200" />
       <label class="block text-xs font-semibold text-slate-500">
         Nahrát nový
@@ -52,8 +52,8 @@ async function onLogoFile(event: Event) {
       </label>
     </section>
 
-    <section class="bg-white border border-slate-200 p-5 space-y-4">
-      <h3 class="font-bold text-sm uppercase tracking-wider text-slate-700">Logo</h3>
+    <section class="space-y-4 border border-slate-200 bg-white p-4 sm:p-5">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700">Logo</h3>
       <img :src="draft.meta.logoUrl" alt="Logo" class="w-24 h-24 object-contain border border-slate-200 bg-slate-900 p-2" />
       <label class="block text-xs font-semibold text-slate-500">
         Nahrát nové
