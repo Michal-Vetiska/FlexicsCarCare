@@ -13,7 +13,7 @@ useHeroParallax(heroImgRef, kineticTextRef)
 
 <template>
   <section
-    class="relative min-h-[100svh] flex items-center justify-center pt-28 sm:pt-32 pb-12 sm:pb-16 overflow-hidden"
+    class="relative min-h-[100svh] flex items-center justify-center pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden"
   >
     <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
       <h1 ref="kineticTextRef" class="hero-headline font-display-xl kinetic-text">FLEXICS</h1>

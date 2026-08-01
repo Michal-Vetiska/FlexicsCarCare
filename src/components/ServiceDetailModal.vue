@@ -85,28 +85,11 @@ onUnmounted(() => {
             <p class="font-body-md text-on-surface-variant">{{ service.overview }}</p>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-            <div class="border border-white/10 p-4 bg-surface/40">
-              <span class="font-label-caps text-[10px] text-on-surface-variant block mb-2">CENA</span>
-              <span class="font-headline-md text-headline-md text-primary-container">
-                {{ service.price }}
-              </span>
-            </div>
-            <div v-if="service.duration" class="border border-white/10 p-4 bg-surface/40">
-              <span class="font-label-caps text-[10px] text-on-surface-variant block mb-2">
-                DOBA
-              </span>
-              <span class="font-body-md font-bold">{{ service.duration }}</span>
-            </div>
-            <div
-              v-if="service.durability"
-              class="border border-white/10 p-4 bg-surface/40 col-span-2 md:col-span-1"
-            >
-              <span class="font-label-caps text-[10px] text-on-surface-variant block mb-2">
-                VÝDRŽ
-              </span>
-              <span class="font-body-md font-bold">{{ service.durability }}</span>
-            </div>
+          <div class="mb-8 border border-white/10 p-4 bg-surface/40 inline-block min-w-[160px]">
+            <span class="font-label-caps text-[10px] text-on-surface-variant block mb-2">CENA</span>
+            <span class="font-headline-md text-headline-md text-primary-container">
+              {{ service.price }}
+            </span>
           </div>
 
           <div class="mb-8">
@@ -119,13 +102,13 @@ onUnmounted(() => {
                 :key="item"
                 class="flex items-start gap-3 font-body-md text-on-surface-variant"
               >
-                <span class="w-1.5 h-1.5 rounded-full bg-primary-container shrink-0 mt-2" />
+                <span class="text-primary-container shrink-0">✓</span>
                 {{ item }}
               </li>
             </ul>
           </div>
 
-          <div class="mb-8">
+          <div v-if="service.process?.length" class="mb-8">
             <h3 class="font-label-caps text-label-caps text-primary-container mb-4">PROCES</h3>
             <ol class="space-y-3">
               <li
@@ -141,7 +124,10 @@ onUnmounted(() => {
             </ol>
           </div>
 
-          <div class="mb-8 p-5 border border-primary-container/20 bg-primary-container/5">
+          <div
+            v-if="service.idealFor"
+            class="mb-8 p-5 border border-primary-container/20 bg-primary-container/5"
+          >
             <span class="font-label-caps text-[10px] text-primary-container block mb-2">
               IDEÁLNÍ PRO
             </span>
